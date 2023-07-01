@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    username: sa
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        default_batch_fetch_size: 1000
+        order_inserts: true
+        order_updates: true
+        query:
+          in_clause_parameter_padding: true
+    database: H2
+  output:
+    ansi:
+      enabled: always
+  h2:
+    console:
+      enabled: true
+  redis:
+    host: localhost
+    port: 6379

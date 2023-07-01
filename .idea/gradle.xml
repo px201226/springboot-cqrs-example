@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleHome" value="" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/blog-api" />
+            <option value="$PROJECT_DIR$/blog-common" />
+            <option value="$PROJECT_DIR$/blog-core" />
+            <option value="$PROJECT_DIR$/blog-reader" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/blog-api" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/blog-api" />
+            <option value="$PROJECT_DIR$/blog-common" />
+            <option value="$PROJECT_DIR$/blog-core" />
+            <option value="$PROJECT_DIR$/blog-reader" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/blog-core" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/blog-api" />
+            <option value="$PROJECT_DIR$/blog-common" />
+            <option value="$PROJECT_DIR$/blog-core" />
+            <option value="$PROJECT_DIR$/blog-reader" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/blog-reader" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/blog-api" />
+            <option value="$PROJECT_DIR$/blog-common" />
+            <option value="$PROJECT_DIR$/blog-core" />
+            <option value="$PROJECT_DIR$/blog-reader" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
