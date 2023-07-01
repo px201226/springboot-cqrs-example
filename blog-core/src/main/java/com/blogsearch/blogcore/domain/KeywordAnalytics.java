@@ -37,7 +37,7 @@ public class KeywordAnalytics {
 	public static KeywordAnalytics createNew(final String keyword) {
 		return KeywordAnalytics.builder()
 				.keyword(keyword)
-				.searchCount(0L)
+				.searchCount(1L)
 				.createAt(LocalDate.now())
 				.build();
 	}

@@ -2,6 +2,7 @@ package com.blogsearch.blogcore.domain;
 
 
 import com.blogsearch.event.RetrievedKeywordEvent;
+import com.blogsearch.event.RetrievedPopularKeywordEvent;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +20,15 @@ public class RetrievedKeywordEventListener {
 	public void whenRetrievedKeyword(RetrievedKeywordEvent event) {
 		log.info("whenRetrievedKeyword keyword = {}", event.getKeyword());
 
-		eventDispatchers.forEach(dispatch -> dispatch.whenRetrievedKeyword(event));
+		eventDispatchers.forEach(dispatch -> dispatch.whenRetrievedKeywordOnBlog(event));
+
+	}
+
+	@EventListener
+	public void whenRetrievedPopularKeyword(RetrievedPopularKeywordEvent event) {
+		log.info("whenRetrievedPopularKeyword");
+
+		eventDispatchers.forEach(dispatch -> dispatch.whenRetrievedPopularKeyword(event));
 
 	}
 }
