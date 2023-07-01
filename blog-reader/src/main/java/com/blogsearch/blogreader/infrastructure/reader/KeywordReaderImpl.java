@@ -1,11 +1,10 @@
-package com.blogsearch.blogreader.service;
+package com.blogsearch.blogreader.infrastructure.reader;
 
 import com.blogsearch.blogreader.dto.KeywordModel.PopularKeywordsResponse;
-import com.blogsearch.blogreader.interfaces.KeywordReader;
-import com.blogsearch.event.RetrievedPopularKeywordEvent;
+import com.blogsearch.blogreader.reader.KeywordReader;
+import com.blogsearch.blogreader.repository.PopularKeywordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -13,11 +12,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class KeywordReaderImpl implements KeywordReader {
 
-	private final ApplicationEventPublisher eventPublisher;
+	private final PopularKeywordRepository popularKeywordRepository;
 
 	@Override public PopularKeywordsResponse findPopularKeywords(final Integer limit) {
 
-		eventPublisher.publishEvent(new RetrievedPopularKeywordEvent());
-		return null;
+		return PopularKeywordsResponse.of(popularKeywordRepository.findPopularKeywords(limit));
 	}
 }

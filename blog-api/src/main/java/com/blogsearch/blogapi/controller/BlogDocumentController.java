@@ -1,13 +1,9 @@
 package com.blogsearch.blogapi.controller;
 
 import com.blogsearch.blogreader.dto.BlogDocumentModel;
-import com.blogsearch.blogreader.dto.BlogDocumentModel.SearchDocumentResponse;
-import com.blogsearch.blogreader.interfaces.BlogDocumentReader;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import com.blogsearch.blogreader.reader.BlogDocumentReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

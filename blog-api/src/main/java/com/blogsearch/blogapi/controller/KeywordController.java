@@ -1,8 +1,7 @@
 package com.blogsearch.blogapi.controller;
 
-import com.blogsearch.blogreader.dto.KeywordModel;
 import com.blogsearch.blogreader.dto.KeywordModel.PopularKeywordsResponse;
-import com.blogsearch.blogreader.interfaces.KeywordReader;
+import com.blogsearch.blogreader.reader.KeywordReader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
