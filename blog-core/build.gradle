@@ -24,12 +24,10 @@ repositories {
 dependencies {
     implementation project(':blog-common')
 
-    implementation 'com.h2database:h2'
-    implementation(group: 'it.ozimov', name: 'embedded-redis', version: '0.7.3')
+    runtimeOnly 'com.h2database:h2'
 
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"

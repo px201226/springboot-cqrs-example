@@ -1,8 +1,8 @@
 package com.blogsearch.blogcore.springboot.infrastructure.eventdispatcher;
 
 import com.blogsearch.blogcore.domain.KeywordAnalytics;
+import com.blogsearch.blogcore.domain.KeywordAnalyticsRepository;
 import com.blogsearch.blogcore.domain.KeywordEventDispatcher;
-import com.blogsearch.blogcore.springboot.infrastructure.repository.RdbKeywordAnalyticsRepositoryImpl;
 import com.blogsearch.event.RetrievedKeywordEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,20 +15,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class RdbRetrievedKeywordEventDispatcher implements KeywordEventDispatcher {
+public class RetrievedKeywordEventDispatcher implements KeywordEventDispatcher {
 
-	private final RdbKeywordAnalyticsRepositoryImpl rdbRepository;
+	private final KeywordAnalyticsRepository keywordAnalyticsRepository;
 
 	@Transactional
 	@Override
 	public void whenRetrievedKeywordOnBlog(final RetrievedKeywordEvent event) {
 
 		log.info("RDB event dispatcher");
-		rdbRepository
+		keywordAnalyticsRepository
 				.findByKeyword(event.getKeyword())
 				.ifPresentOrElse(
 						KeywordAnalytics::increase,
-						() -> rdbRepository.save(KeywordAnalytics.createNew(event.getKeyword()))
+						() -> keywordAnalyticsRepository.save(KeywordAnalytics.createNew(event.getKeyword()))
 				);
 
 	}
