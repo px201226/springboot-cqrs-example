@@ -25,7 +25,7 @@ public class FeignClientConfig implements Jackson2ObjectMapperBuilderCustomizer 
 		};
 	}
 
-
+	@Override
 	public void customize(Jackson2ObjectMapperBuilder jacksonObjectMapperBuilder) {
 		jacksonObjectMapperBuilder
 				.featuresToEnable(DeserializationFeature.READ_UNKNOWN_ENUM_VALUES_AS_NULL)
