@@ -1,8 +1,8 @@
 package com.blogsearch.blogreader.infrastructure.reader;
 
 import com.blogsearch.blogreader.dto.KeywordModel.PopularKeywordsResponse;
-import com.blogsearch.blogreader.reader.KeywordReader;
-import com.blogsearch.blogreader.repository.PopularKeywordRepository;
+import com.blogsearch.blogreader.interfaces.reader.KeywordReader;
+import com.blogsearch.blogreader.interfaces.repository.PopularKeywordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

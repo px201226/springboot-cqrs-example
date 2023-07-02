@@ -1,7 +1,7 @@
 package com.blogsearch.blogreader.infrastructure.repository;
 
 import com.blogsearch.blogreader.dto.KeywordModel.Keyword;
-import com.blogsearch.blogreader.repository.PopularKeywordRepository;
+import com.blogsearch.blogreader.interfaces.repository.PopularKeywordRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.RowMapper;

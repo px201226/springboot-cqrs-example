@@ -1,4 +1,4 @@
-package com.blogsearch.blogreader.reader;
+package com.blogsearch.blogreader.interfaces.reader;
 
 import com.blogsearch.blogreader.dto.KeywordModel.PopularKeywordsResponse;
 

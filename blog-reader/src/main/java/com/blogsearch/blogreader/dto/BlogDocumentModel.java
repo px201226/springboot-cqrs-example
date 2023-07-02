@@ -1,6 +1,6 @@
 package com.blogsearch.blogreader.dto;
 
-import java.time.LocalDate;
+import java.time.OffsetDateTime;
 import java.util.List;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -87,7 +87,7 @@ public class BlogDocumentModel {
 		private String thumbnail;
 
 		/** 블로그 글 작성일자 */
-		private LocalDate registrationDate;
+		private OffsetDateTime registrationDate;
 
 	}
 
