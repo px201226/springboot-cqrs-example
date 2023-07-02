@@ -6,6 +6,8 @@ import com.blogsearch.blogcore.domain.KeywordEventDispatcher;
 import com.blogsearch.event.RetrievedKeywordEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,8 +22,9 @@ public class KeywordEventAnalyticsDispatcher implements KeywordEventDispatcher {
 
 	private final KeywordAnalyticsRepository keywordAnalyticsRepository;
 
-	@Transactional
 	@Override
+	@Retryable(maxAttempts = 3, backoff = @Backoff(delay = 1000))
+	@Transactional
 	public void whenRetrievedKeywordOnBlog(final RetrievedKeywordEvent event) {
 
 		log.info("RDB event dispatcher");
