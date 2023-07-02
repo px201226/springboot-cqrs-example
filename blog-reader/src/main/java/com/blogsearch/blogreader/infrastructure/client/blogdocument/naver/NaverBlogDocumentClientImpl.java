@@ -37,7 +37,7 @@ public class NaverBlogDocumentClientImpl implements BlogDocumentClient {
 		);
 
 		return SearchDocumentResponse.of(
-				Meta.of(naverResponse.getTotal(), null),
+				Meta.of(naverResponse.getTotal()),
 				naverResponse.getItems().stream().map(Item::toBlogDocumentModel).collect(Collectors.toList())
 		);
 

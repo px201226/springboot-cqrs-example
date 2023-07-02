@@ -5,6 +5,7 @@ import com.blogsearch.blogreader.dto.BlogDocumentModel.SearchDocumentResponse;
 import com.blogsearch.blogreader.interfaces.client.BlogDocumentClient;
 import com.blogsearch.blogreader.interfaces.reader.BlogDocumentReader;
 import com.blogsearch.event.RetrievedKeywordEvent;
+import com.blogsearch.exception.NetworkInvocationException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,6 @@ public class BlogDocumentReaderImpl implements BlogDocumentReader {
 			}
 		}
 
-		throw new RuntimeException("검색 실패");
+		throw new NetworkInvocationException("검색 API 연동에 실패하였습니다");
 	}
 }

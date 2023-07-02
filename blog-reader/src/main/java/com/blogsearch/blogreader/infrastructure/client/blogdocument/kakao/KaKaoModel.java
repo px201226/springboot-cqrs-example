@@ -36,7 +36,7 @@ public class KaKaoModel {
 		private Boolean isEnd;
 
 		public BlogDocumentModel.Meta toBlogDocumentModel() {
-			return BlogDocumentModel.Meta.of(totalCount, isEnd);
+			return BlogDocumentModel.Meta.of(totalCount);
 		}
 	}
 

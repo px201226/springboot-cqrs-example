@@ -29,6 +29,7 @@ public class BlogDocumentModel {
 		private String query;
 
 		/** 결과 문서 정렬 방식 */
+		@NotNull(message = "null 이거나 존재하지 않는 옵션값")
 		private Sort sort;
 
 		/** 결과 페이지 번호 */
@@ -61,8 +62,6 @@ public class BlogDocumentModel {
 		/** 검색된 문서 수*/
 		private Integer totalCount;
 
-		/** 현재 페이지가 마지막 페이지인지 여부.*/
-		private Boolean isEnd;
 	}
 
 
@@ -83,7 +82,7 @@ public class BlogDocumentModel {
 		/** 블로그의 이름 */
 		private String blogName;
 
-		/** 검색 시스템에서 추출한 대표 미리보기 이미지 URL, 미리보기 크기 및 화질은 변경될 수 있음 */
+		/** 블로그 썸네일 */
 		private String thumbnail;
 
 		/** 블로그 글 작성일자 */

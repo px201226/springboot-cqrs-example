@@ -2,6 +2,7 @@ package com.blogsearch.blogapi.controller;
 
 import com.blogsearch.blogreader.dto.BlogDocumentModel;
 import com.blogsearch.blogreader.interfaces.reader.BlogDocumentReader;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +23,10 @@ public class BlogDocumentController {
 	 */
 	@GetMapping("/v1/documents")
 	public BlogDocumentModel.SearchDocumentResponse getDocuments(
-			@RequestBody final BlogDocumentModel.SearchDocumentRequest request
+			@Valid @RequestBody final BlogDocumentModel.SearchDocumentRequest request
 	) {
-		final var documents = blogDocumentReader.findDocuments(request);
 
-		return documents;
+		return blogDocumentReader.findDocuments(request);
 	}
 
 }
