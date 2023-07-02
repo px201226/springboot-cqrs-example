@@ -15,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 @RequiredArgsConstructor
 @Component
-public class RetrievedKeywordEventDispatcher implements KeywordEventDispatcher {
+
+public class KeywordEventAnalyticsDispatcher implements KeywordEventDispatcher {
 
 	private final KeywordAnalyticsRepository keywordAnalyticsRepository;
 
