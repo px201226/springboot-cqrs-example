@@ -22,6 +22,7 @@ public class BlogDocumentModel {
 	@Getter
 	@Setter
 	@ToString
+	@NoArgsConstructor
 	@AllArgsConstructor(staticName = "of")
 	public static class SearchDocumentRequest {
 
