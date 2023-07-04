@@ -1,5 +1,6 @@
 ## 지원자 정보
-126-000119_이기수_서버 개발자서버 개발자 (HIGHLIGHT 채용) 
+126-000119_이기수_서버 개발자 (HIGHLIGHT 채용) 
+
 
 ## 구현한 기능
 - 키워드 블로그 검색 (정확도순, 최신순) 페이징 조회
@@ -8,12 +9,14 @@
 - 멀티 모듈 구성 및 Spring ApplicationEvent를 이용한 느슨한 결합
 - 키워드 별 검색 횟수 저장 시, 동시성 이슈 해결
 
+
 ## 기술 스택
 - 언어: Java 11
 - 프레임워크 : Spring Boot 2
 - 데이터베이스 : H2 (MySQL)
 - 빌드 도구 : Gradle
 
+  
 ## 프로젝트 구조
 멀티 모듈 프로젝트로, 이벤트 기반의 CQRS 패턴을 적용하여 읽기 모델과 쓰기 모델을 분리하였습니다.
 
@@ -29,6 +32,7 @@
 - `blog-common` 모듈
   - 공통 모듈로 각종 DTO 객체를 정의합니다.
 
+  
 ## 모듈별 컴포넌트 및 상호작용 다이어그램
 각 모듈간의 호출은 같은 JVM 위에서 이루어지지만, 약간의 코드 작업으로 메시지 큐와 원격 호출로 대체할 수 있도록 느슨한 결합을 가지도록 설계하였습니다.
 
@@ -41,15 +45,16 @@
 4. `blog-core` 도메인 이벤트를 수신하고, 이벤트 디스패처에 처리를 위임합니다.
 
 
+  
 ## 외부 라이브러리 의존성
-- spring-boot-starter-web : 서블릿 API 기반 클라이언트 요청 처리를 위해 
-- spring-boot-starter-validation : DTO 유효성 검증 수행
-- spring-boot-starter-data-jpa : 객체 중심 모델링 및 생산성 향상
-- spring-cloud-starter-openfeign : 외부 API 연동을 어노테이션 기반으로 반복적인 코드를 줄일 수 있습니다
-- jackson-databind : spring-boot-starter-web 모듈에 의존성을 가지지 않는 모듈에서 사용
-- spring-retry : DB 중복키 오류 발생 시, 재시도하기 위해 사용
+- `spring-boot-starter-web` : 서블릿 API 기반 클라이언트 요청 처리를 위해 
+- `spring-boot-starter-validation` : DTO 유효성 검증 수행
+- `spring-boot-starter-data-jpa` : 객체 중심 모델링 및 생산성 향상
+- `spring-cloud-starter-openfeign` : 외부 API 연동을 어노테이션 기반으로 반복적인 코드를 줄일 수 있습니다
+- `jackson-databind` : spring-boot-starter-web 모듈에 의존성을 가지지 않는 모듈에서 사용
+- `spring-retry` : DB 중복키 오류 발생 시, 재시도하기 위해 사용
 
-
+   
 ## 주요 기능 구현
 **1. 블로그 검색**
 - 카카오 API, 네이버 API 연동은 OpenFeign 라이브러리를 사용했습니다.
@@ -57,7 +62,7 @@
 - 카카오 API, 네이버 API는 `BlogDocumentClient` 라는 인터페이스로 추상화하였습니다.
 - 추상화한 이유는 구현체`(카카오, 네이버)`의 응답값이나 요청 파라미터와 의존성을 분리하고, fallback 구현 시 공통 인터페이스가 필요했기 때문입니다.
 
-
+  
 **2. 인기 검색어 목록**
 - 인기 김색어 목록을 구현하기 위해, 키워드별 검색횟수를 저장할 수 있는 테이블을 설계하였습니다.
 ```sql
@@ -83,6 +88,7 @@ create index IX01_KEYWORD_ANALYTICS
     on KEYWORD_ANALYTICS (search_count, id);
 ```
 
+  
 **3. 멀티 모듈 설계**
 - 모듈 설계 전, 주어진 요구사항에서 핵심 도메인은 무엇이며 변하는 것과 변하지 않는 것은 무엇인지 고민하였습니다.
 - 제가 분석한 요구사항의 핵심 도메인은 **키워드 분석 도메인** 입니다.
@@ -92,22 +98,25 @@ create index IX01_KEYWORD_ANALYTICS
 - 그래서 최종적으로 이벤트 드리븐 기반 CQRS 패턴의 모듈 설계가 되었습니다.
   - `api`,`reader`,`core`,`common` 모듈
 
+  
 **4. 트래픽 및 동시성 이슈 처리**
 
-트래픽 관리
+**트래픽 관리**
 - 읽기 모델과 쓰기 모델이 이벤트로 통신하기 때문에, 서버 분리가 가능합니다.
 - 읽기 트래픽 많으면 읽기 모델 서버만 스케일 아웃할 수 있습니다.
-- 쓰기 모델은 이벤트 기반 비동기 처리가 가능해, 쓰기 지연이 발생하더라도 읽기 모델에 영향을 주지 않습니다.
+- 쓰기 모델은 이벤트 기반 비동기 처리가 가능해, 쓰기 지연이 발생하더라도 읽기 모델에 영향을 주지 않습니다.  
 
-동시성 이슈 관리
+  
+**동시성 이슈 관리**
 - JPA를 사용하여 엔티티를 업데이트 하기 위해서는 일반적으로 `SELECT`, `UPDATE` 두 번의 SQL이 호출되기 때문에 갱신손실 문제와 같은 동시성 이슈가 발생할 수 있습니다.
 - 가장 쉬운 해결 방법은 검색 횟수 업데이트 트랜잭션을 원자적 연산으로 처리하는 것 입니다.
 
 `UPDATE keyword_analytics SET search_count = search_count + 1 WHERE keyword = 'xx';`
 - 하지만, 이러한 방식은 객체 중심적이지 않고 새로운 키워드를 저장하는 경우에는 저장된 데이터가 있는지 확인하는 작업이 들어가`SELECT`, `INSERT` 두 번의 호출이 필요합니다.
-- 이 문제를 해결하기 위해서는 검색 횟수 업데이트 트랜잭션에서 `SELECT FOR UPDATE` 문을 사용하여 읽기 및 쓰기 잠금을 사용하여 동시성 문제를 회피할 수 있습니다.
+- 이 문제를 해결하기 위해서는 검색 횟수 업데이트 트랜잭션에서 `SELECT FOR UPDATE` 문을 사용하여 읽기 및 쓰기 잠금을 사용하여 동시성 문제를 회피할 수 있습니다.  
 
 
+  
 ## 테스트 코드
 각 모듈의 관심사별로 테스트 코드를 작성하였습니다.
 
@@ -119,3 +128,85 @@ create index IX01_KEYWORD_ANALYTICS
 
 - **core 모듈 테스트 케이스**
 ![core-test.png](img%2Fcore-test.png)
+
+
+## 빌드 및 실행
+### 실행
+```shell
+git clone https://github.com/px201226/20230705_2126-000119.git
+cd ./20230705_2126-000119
+java -jar api-server.jar
+```
+
+### 빌드
+``` shell
+ ./gradlew clean :blog-api:buildNeeded   
+```
+
+
+## API 테스트
+### 키워드 검색 API
+- 요청 curl
+```shell
+curl --request GET 'http://localhost:8080/v1/documents' \
+--header 'Content-Type: application/json' \
+--data '{
+    "query" : "사과",
+    "sort" : "accuracy",
+    "page" : 1,
+    "size" : 10
+}' | json_pp -json_opt pretty,utf8
+```
+
+- 응답
+```json
+{
+   "documents" : [
+      {
+         "blogName" : "ks3569님의 블로그",
+         "contents" : "그러던 중 아누카<b>사과</b> 추출분말이 들어있는 아누카리치 샴푸라는 것을 알게 되었어요. 이번에 생전... 이 안에 들어 있는 주성분인 아누카<b>사과</b> 추출문말이 탈모예방에 도움이 된다고 하더라구요. 저 역시도... ",
+         "registrationDate" : "2023-06-04T21:00:00+09:00",
+         "thumbnail" : null,
+         "title" : "아누카<b>사과</b> 추출분말로 모발관리 도움받기",
+         "url" : "https://blog.naver.com/ks3569/223119710170"
+      },
+      ... 생략
+   ],
+   "meta" : {
+      "totalCount" : 8811803
+   }
+}
+
+```
+
+
+## 인기 검색어 Top10 조회
+
+- 요청 curl
+``` shell
+curl --request GET 'http://localhost:8080/v1/keywords/popularTop10' \
+--header 'Content-Type: application/json' \
+--data '{
+    "query" : "사과",
+    "sort" : "accuracy",
+    "page" : 50,
+    "size" : 1
+}' | json_pp -json_opt pretty,utf8
+```
+
+- 응답
+```json
+{
+   "keywords" : [
+      {
+         "keyword" : "사과",
+         "searchCount" : 7
+      },
+      {
+         "keyword" : "배",
+         "searchCount" : 1
+      }
+   ]
+}
+
+```
