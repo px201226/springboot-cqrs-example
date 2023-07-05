@@ -88,7 +88,21 @@ create index IX01_KEYWORD_ANALYTICS
     on KEYWORD_ANALYTICS (search_count, id);
 ```
 
-  
+```SQL
+EXPLAIN ANALYZE
+SELECT * FROM `KEYWORD_ANALYTICS`
+ORDER BY search_count DESC
+LIMIT 10;
+```
+``` SQL
+-> Limit: 10 row(s)  (cost=0.01 rows=10) (actual time=1.025..1.090 rows=10 loops=1)
+  -> Index scan on KEYWORD_ANALYTICS using IX01_KEYWORD_ANALYTICS (reverse)  (cost=0.01 rows=10) (actual time=1.014..1.062 rows=10 loops=1)
+```
+- 인기 검색어 Top 10 쿼리 및 실행 계획
+  - Index Range Scan 으로 10건의 데이터에 대해서 I/O가 일어난 것을 확인할 수 있습니다.
+
+
+   
 **3. 멀티 모듈 설계**
 - 모듈 설계 전, 주어진 요구사항에서 핵심 도메인은 무엇이며 변하는 것과 변하지 않는 것은 무엇인지 고민하였습니다.
 - 제가 분석한 요구사항의 핵심 도메인은 **키워드 분석 도메인** 입니다.
